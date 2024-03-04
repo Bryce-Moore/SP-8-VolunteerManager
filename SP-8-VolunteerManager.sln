@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SP-8-VolunteerManager.Server", "SP-8-VolunteerManager.Server\SP-8-VolunteerManager.Server.csproj", "{A0AE724E-2686-40BC-B31A-74F67198E3F4}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "sp-8-volunteermanager.client", "sp-8-volunteermanager.client\sp-8-volunteermanager.client.esproj", "{AF18E322-B0D3-4C69-9F1B-E6CB53CCE0F6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A0AE724E-2686-40BC-B31A-74F67198E3F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0AE724E-2686-40BC-B31A-74F67198E3F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0AE724E-2686-40BC-B31A-74F67198E3F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0AE724E-2686-40BC-B31A-74F67198E3F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF18E322-B0D3-4C69-9F1B-E6CB53CCE0F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF18E322-B0D3-4C69-9F1B-E6CB53CCE0F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF18E322-B0D3-4C69-9F1B-E6CB53CCE0F6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{AF18E322-B0D3-4C69-9F1B-E6CB53CCE0F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF18E322-B0D3-4C69-9F1B-E6CB53CCE0F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF18E322-B0D3-4C69-9F1B-E6CB53CCE0F6}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9B55F5AA-E9F3-452B-A900-16A3AB9AA870}
+	EndGlobalSection
+EndGlobal
