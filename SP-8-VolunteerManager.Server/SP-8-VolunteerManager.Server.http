@@ -1,6 +1,6 @@
 @SP_8_VolunteerManager.Server_HostAddress = http://localhost:5162
 
-GET {{SP_8_VolunteerManager.Server_HostAddress}}/weatherforecast/
+GET {{SP_8_VolunteerManager.Server_HostAddress}}
 Accept: application/json
 
 ###
