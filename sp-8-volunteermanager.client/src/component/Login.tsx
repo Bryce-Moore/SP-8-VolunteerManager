@@ -27,7 +27,13 @@ function Login() {
       // Save the auth_token to local storage
       localStorage.setItem('auth_token', auth_token);
 
+      if (auth_token) {
+        // Set the token in the axios header
+        axios.defaults.headers.common['Authorization'] = `Bearer ${auth_token}`;
+      }
+
       alert('Login successful!');
+      console.log('Login successful!');
       
       // Redirect the user to the dashboard
       navigate('/dashboard');
@@ -35,9 +41,11 @@ function Login() {
       if (axios.isAxiosError(error)) {
         // Handle errors returned from the server
         alert(`Login failed: ${error.response?.data.message || 'An error occurred'}`);
+        console.log(`Login failed: ${error.response?.data.message || 'An error occurred'}`)
       } else {
         // Handle other errors
         alert('Login failed. Please try again.');
+        console.log('Login failed. Please try again.');
       }
     }
   };

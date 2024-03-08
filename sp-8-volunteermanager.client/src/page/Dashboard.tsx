@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 import axios from 'axios';
+import GroupMenu from '../component/GroupMenu';
 
 // Placeholder components for the dashboard tabs
 // TODO: Make components for these services
@@ -11,26 +12,49 @@ const Reports = () => <div>Reports</div>;
 const ManageMembers = () => <div>Manage Members</div>;
 const Invite = () => <div>Invite</div>;
 
+interface Group {
+  id: string;
+  name: string;
+}
+
 type Tab = {
   name: string;
   link: string;
 };
 
-interface DashboardProps {
-  groupID: string;
-}
-
 interface RoleResponse {
   role: string;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({  groupID }) => {
+export const Dashboard: React.FC = () => {
   const [role, setRole] = useState<string>(''); // State for the user's role in the selected group
   const [tabs, setTabs] = useState<Tab[]>([]); // State of the selected tab
+  const [groups, setGroups] = useState<Group[]>([]); // State of the user's groups
+  const [groupID, setGroupID] = useState<string>('loading');
 
   // IMPORTANT: Each service for a group is accessible by the tab buttons
 
-  useEffect(() => { // useEffect as the role state is updated by an asynchronous function
+  useEffect(() => {
+    // Fetch the all groups associated with the user from user_groups table
+    const fetchGroups = async () => {
+      try {
+        const response = await axios.get('http://10.69.40.5:8000/api/user/groups'); // Returns all entries associated with the user from the user_group table
+        const fetchedGroups = Array.isArray(response.data) ? response.data : [];
+        setGroups(fetchedGroups);
+
+        if (groupID === 'loading' && fetchedGroups.length > 0) {
+          setGroupID(fetchedGroups[0].id); // Automatically select the first group if none is selected
+        }
+      } catch (error) { // Error handling
+        console.error("Failed to fetch groups or role", error);
+      }
+    };
+
+    fetchGroups();
+  }, [setGroupID]);
+
+  // Update the user's role
+  useEffect(() => {
     if (groupID !== 'loading') { // If the groupID has been fetched
       const fetchRole = async () => { // Use the groupID to fetch the user's role
         try {
@@ -46,13 +70,6 @@ export const Dashboard: React.FC<DashboardProps> = ({  groupID }) => {
     }
   }, [groupID]);
  
-  useEffect(() => { // Set the auth token as the default header
-    const authToken = localStorage.getItem('auth_token');
-    if (authToken) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
-    }
-  }, []);
-
   const adjustTabsForRole = (role: string) => {
     // Tabs for non-admins
     const baseTabs = [{ name: 'Submit shift(s)', link: 'submit-shifts' }, { name: 'Manage membership', link: 'manage-membership' }];
@@ -71,31 +88,34 @@ export const Dashboard: React.FC<DashboardProps> = ({  groupID }) => {
   }
 
   return (
-    <div>
-      <nav>
-        <ul>
-          {/* List tabs from state */}
-          {tabs.map((tab, index) => ( 
-            <li key={index}>
-              <Link to={tab.link}>{tab.name}</Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
-      <Routes>
-        {/* Assign each tab to a component */}
-        <Route path="submit-shifts" element={<SubmitShifts />} />
-        <Route path="manage-membership" element={<ManageMembership />} />
-        {/* Ensure admin-only routes are protected */}
-        {role === 'admin' && (
-          <>
-            <Route path="submissions" element={<Submissions />} />
-            <Route path="reports" element={<Reports />} />
-            <Route path="manage-members" element={<ManageMembers />} />
-            <Route path="invite" element={<Invite />} />
-          </>
-        )}
-      </Routes>
+    <div style={{ display: 'flex' }}>
+      <GroupMenu groups={groups} onSelectGroup={setGroupID} />
+      <div>
+        <nav>
+          <ul>
+            {/* List tabs from state */}
+            {tabs.map((tab, index) => ( 
+              <li key={index}>
+                <Link to={tab.link}>{tab.name}</Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <Routes>
+          {/* Assign each tab to a component */}
+          <Route path="submit-shifts" element={<SubmitShifts />} />
+          <Route path="manage-membership" element={<ManageMembership />} />
+          {/* Ensure admin-only routes are protected */}
+          {role === 'admin' && (
+            <>
+              <Route path="submissions" element={<Submissions />} />
+              <Route path="reports" element={<Reports />} />
+              <Route path="manage-members" element={<ManageMembers />} />
+              <Route path="invite" element={<Invite />} />
+            </>
+          )}
+        </Routes>
+      </div>
     </div>
   );
 };
