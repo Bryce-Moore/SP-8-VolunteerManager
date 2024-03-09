@@ -41,17 +41,18 @@ export default defineConfig({
             '@': fileURLToPath(new URL('./src', import.meta.url))
         }
     },
-    // server: {
-    //     proxy: {
-    //         '^/weatherforecast': {
-    //             target,
-    //             secure: false
-    //         }
-    //     },
-    //     // port: 5173,
-    //     https: {
-    //         key: fs.readFileSync(keyFilePath),
-    //         cert: fs.readFileSync(certFilePath),
-    //     }
-    // }
+    server: {
+        proxy: {
+            '^/weatherforecast': {
+                target: 'http://10.69.40.5:8000',
+                changeOrigin: true,
+                secure: false
+            }
+        }
+        // port: 5173,
+        // https: {
+        //     key: fs.readFileSync(keyFilePath),
+        //     cert: fs.readFileSync(certFilePath),
+        // }
+    }
 })
