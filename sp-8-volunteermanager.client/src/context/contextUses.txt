@@ -1,0 +1,13 @@
+Description: The context folder is used for React Context API files. 
+The Context API allows you to pass data through the component tree 
+without having to pass props down manually at every level. This is 
+particularly useful for global state management, such as user 
+authentication status, theme settings, or application-wide 
+configurations.
+
+Example Use Case: For a shopping cart application, you might have a
+CartContext.tsx file that creates and exports a context for the 
+shopping cart. This context could be used to store the items in 
+the cart, total price, and functions to add or remove items, 
+making these accessible throughout the application without prop 
+drilling.

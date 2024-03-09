@@ -1,0 +1,10 @@
+Description: The assets folder is where you store static files 
+such as images, icons, fonts, 
+and sometimes global stylesheets 
+or CSS files that are not directly tied to specific components.
+
+Example Use Case: In a blog application, 
+the assets/images/ directory could contain default avatars for users 
+who haven't uploaded a profile picture, the logo of the blog, and icons 
+for social media links. The assets/fonts/ directory might include 
+custom fonts used across the app.

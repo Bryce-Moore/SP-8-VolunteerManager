@@ -1,0 +1,11 @@
+Description: The utils or helpers folder contains utility 
+functions that provide common, reusable logic across your application.
+These functions typically do not interact directly with React 
+components but offer formatting, calculations, or other 
+general-purpose functionality.
+
+Example Use Case: In an e-commerce platform, you might have a 
+formatCurrency.js utility that formats numbers as currency strings 
+according to different locales. This function could be used in 
+product listings, cart summaries, and checkout pages to ensure 
+consistent currency formatting throughout the app.

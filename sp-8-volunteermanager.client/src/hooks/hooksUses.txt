@@ -1,0 +1,11 @@
+Description: The hooks folder contains custom React hooks. 
+Custom hooks allow you to extract component logic into reusable 
+functions. This can help in keeping your components clean and 
+improving code reusability across your app.
+
+Example Use Case: In a data dashboard application, you might 
+create a custom hook useFetchData.ts that abstracts the fetching, 
+loading state management, and error handling for API requests. 
+This hook could be used across different components to fetch 
+various types of data (e.g., sales data, user analytics) from 
+your backend.

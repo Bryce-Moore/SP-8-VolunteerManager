@@ -1,0 +1,9 @@
+Description: The services folder encapsulates interactions with 
+external services, such as APIs. This separation keeps your API 
+calls organized and abstracted away from UI logic.
+
+Example Use Case: In a social media application, you could have a 
+userService.ts file that includes functions for making API requests 
+related to users, such as fetching user profiles, updating user 
+data, or fetching friends/posts of a user. This centralizes all 
+user-related API logic, making it easier to maintain and update.
