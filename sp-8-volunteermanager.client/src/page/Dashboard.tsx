@@ -38,7 +38,12 @@ export const Dashboard: React.FC = () => {
     // Fetch the all groups associated with the user from user_groups table
     const fetchGroups = async () => {
       try {
-        const response = await axios.get('http://10.69.40.5:8000/api/user/groups'); // Returns all entries associated with the user from the user_group table
+        // Returns all entries associated with the user from the user_group table
+        const response = await axios.get('http://10.69.40.5:8000/api/user/groups', {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }); 
         const fetchedGroups = Array.isArray(response.data) ? response.data : [];
         setGroups(fetchedGroups);
 

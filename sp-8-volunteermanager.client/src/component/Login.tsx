@@ -19,7 +19,11 @@ function Login() {
     e.preventDefault();
     try {
       // Sending the login credentials to the backend
-      const response = await axios.post('http://10.69.40.5:8000/api/auth', credentials);
+      const response = await axios.post('http://10.69.40.5:8000/api/auth', credentials, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
       
       // Extract the auth_token from the response
       const { auth_token } = response.data;

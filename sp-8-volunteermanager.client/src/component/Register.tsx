@@ -30,13 +30,22 @@ function Register({ onRegistrationSuccess }: RegisterProps) {
     e.preventDefault();
     try {
       // Use axios.post for the submission
-      const response = await axios.post('http://10.69.40.5:8000/api/auth/reg', formData);
+      const response = await axios.post('http://10.69.40.5:8000/api/auth/reg', formData, {
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any other headers here
+        }
+      });
 
       // Successful submission
       const { accountID } = response.data;
-      sessionStorage.setItem('accountID', accountID); // Save the accountID to session storage
+      
+      // Save the accountID to session storage
+      sessionStorage.setItem('accountID', accountID);
+
       alert('Registration successful!');
       onRegistrationSuccess(); // Call the function passed as a prop to switch back to login view
+      
     } catch (error) {
       if (axios.isAxiosError(error)) {
         // Handling Axios errors
