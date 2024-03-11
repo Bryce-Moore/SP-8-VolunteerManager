@@ -28,8 +28,8 @@ function Login() {
       // Extract the auth_token from the response
       const { auth_token } = response.data;
       
-      // Save the auth_token to local storage
-      localStorage.setItem('auth_token', auth_token);
+      // Save the auth_token to session storage
+      sessionStorage.setItem('auth_token', auth_token);
 
       if (auth_token) {
         // Set the token in the axios header
@@ -40,6 +40,7 @@ function Login() {
       console.log('Login successful!');
       
       // Redirect the user to the dashboard
+      console.log('Navigating to Dashboard.tsx')
       navigate('/dashboard');
     } catch (error) {
       if (axios.isAxiosError(error)) {

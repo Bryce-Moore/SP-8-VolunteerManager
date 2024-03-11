@@ -1,7 +1,9 @@
+// Dashboard.tsx
 import React, { useEffect, useState } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 import axios from 'axios';
 import GroupMenu from '../component/GroupMenu';
+import CreateGroup from '../component/CreateGroup';
 
 // Placeholder components for the dashboard tabs
 // TODO: Make components for these services
@@ -15,6 +17,7 @@ const Invite = () => <div>Invite</div>;
 interface Group {
   id: string;
   name: string;
+  role: string;
 }
 
 type Tab = {
@@ -22,84 +25,69 @@ type Tab = {
   link: string;
 };
 
-interface RoleResponse {
-  role: string;
-}
-
 export const Dashboard: React.FC = () => {
-  const [role, setRole] = useState<string>(''); // State for the user's role in the selected group
   const [tabs, setTabs] = useState<Tab[]>([]); // State of the selected tab
   const [groups, setGroups] = useState<Group[]>([]); // State of the user's groups
-  const [groupID, setGroupID] = useState<string>('loading');
+  const [currentGroup, setCurrentGroup] = useState<Group | null>(null); // State of the currently selected group
 
   // IMPORTANT: Each service for a group is accessible by the tab buttons
 
   useEffect(() => {
-    // Fetch the all groups associated with the user from user_groups table
+     // Fetch the all groups associated with the user
     const fetchGroups = async () => {
       try {
-        // Returns all entries associated with the user from the user_group table
-        const response = await axios.get('http://10.69.40.5:8000/api/user/groups', {
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        }); 
-        const fetchedGroups = Array.isArray(response.data) ? response.data : [];
+        // Returns an array of all the groupIDs, group names, and roles associated with the user
+        const response = await axios.get('http://10.69.40.5:8000/api/user/groups/', {
+          headers: { 'Content-Type': 'application/json' }
+        });
+        const fetchedGroups: Group[] = Array.isArray(response.data) ? response.data : [];
         setGroups(fetchedGroups);
 
-        if (groupID === 'loading' && fetchedGroups.length > 0) {
-          setGroupID(fetchedGroups[0].id); // Automatically select the first group if none is selected
-        }
+        // Set the first group by default or null if there are no groups
+        setCurrentGroup(fetchedGroups.length > 0 ? fetchedGroups[0] : null);
       } catch (error) { // Error handling
-        console.error("Failed to fetch groups or role", error);
+        console.error("Failed to fetch groups", error);
+        setCurrentGroup(null);
       }
     };
 
     fetchGroups();
-  }, [setGroupID]);
+  }, []);
 
-  // Update the user's role
   useEffect(() => {
-    if (groupID !== 'loading') { // If the groupID has been fetched
-      const fetchRole = async () => { // Use the groupID to fetch the user's role
-        try {
-          const response = await axios.get<RoleResponse>(`http://10.69.40.5:8000/api/user/group/${groupID}/role`); // API call to return the role from user_groups table
-          setRole(response.data.role); // Update the role state variable based off the API response
-          adjustTabsForRole(response.data.role); // Update the tabs based off role status
-        } catch (error) { // Error handling
-          console.error("Failed to fetch user role", error);
-        }
-      };
-
-      fetchRole();
+    if (currentGroup) {
+      adjustTabsForRole(currentGroup.role);
+    } else {
+      // If there's no current group, show CreateGroup
+      setTabs([{ name: 'Create Group', link: 'create-group' }]);
     }
-  }, [groupID]);
- 
+  }, [currentGroup]); // Listen for changes to currentGroup
+
   const adjustTabsForRole = (role: string) => {
     // Tabs for non-admins
     const baseTabs = [{ name: 'Submit shift(s)', link: 'submit-shifts' }, { name: 'Manage membership', link: 'manage-membership' }];
     if (role === 'admin') {
       // Tabs for admins
       const adminTabs = [...baseTabs, { name: 'Submissions', link: 'submissions' }, { name: 'Reports', link: 'reports' }, { name: 'Manage members', link: 'manage-members' }, { name: 'Invite', link: 'invite' }];
-      setTabs(adminTabs); // Set tab state for admin status
+      setTabs(adminTabs);
     } else {
-      setTabs(baseTabs); // Set tab state for non-admin
+      setTabs(baseTabs);
     }
   };
 
-  // Render a loading indicator if groupID is still being fetched
-  if (groupID === 'loading') {
-    return <div>Loading information...</div>;
+  if (!currentGroup) {
+    // Directly render CreateGroup if no groups are loaded or if user has no groups
+    return <CreateGroup />;
   }
 
   return (
     <div style={{ display: 'flex' }}>
-      <GroupMenu groups={groups} onSelectGroup={setGroupID} />
+      <GroupMenu currentGroup={currentGroup} groups={groups} onSelectGroup={(id, name, role) => setCurrentGroup({id, name, role})} onCreateGroup={() => setCurrentGroup(null)} />
       <div>
         <nav>
           <ul>
-            {/* List tabs from state */}
-            {tabs.map((tab, index) => ( 
+             {/* List tabs from state */}
+            {tabs.map((tab, index) => (
               <li key={index}>
                 <Link to={tab.link}>{tab.name}</Link>
               </li>
@@ -107,11 +95,11 @@ export const Dashboard: React.FC = () => {
           </ul>
         </nav>
         <Routes>
-          {/* Assign each tab to a component */}
+          {/* Assign each tab to a component */}  
           <Route path="submit-shifts" element={<SubmitShifts />} />
           <Route path="manage-membership" element={<ManageMembership />} />
           {/* Ensure admin-only routes are protected */}
-          {role === 'admin' && (
+          {currentGroup.role === 'admin' && (
             <>
               <Route path="submissions" element={<Submissions />} />
               <Route path="reports" element={<Reports />} />
@@ -119,6 +107,7 @@ export const Dashboard: React.FC = () => {
               <Route path="invite" element={<Invite />} />
             </>
           )}
+          <Route path="create-group" element={<CreateGroup />} />
         </Routes>
       </div>
     </div>
