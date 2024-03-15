@@ -9,9 +9,10 @@ interface GroupMenuProps {
   onSelectGroup: (id: string, name: string, role: string) => void;
   groups: Group[];
   onCreateGroup: () => void;
+  onJoinGroup: () => void;
 }
 
-const GroupMenu: React.FC<GroupMenuProps> = ({ currentGroup, groups, onSelectGroup, onCreateGroup }) => {
+const GroupMenu: React.FC<GroupMenuProps> = ({ currentGroup, groups, onSelectGroup, onCreateGroup, onJoinGroup }) => {
   return (
     <div>
       {groups.map(group => ( // Lists all the groups with handlers for button clicks
@@ -41,6 +42,18 @@ const GroupMenu: React.FC<GroupMenuProps> = ({ currentGroup, groups, onSelectGro
         }}
       >
         Create a Group
+      </div>
+      <div
+        onClick={onJoinGroup}
+        style={{
+          cursor: 'pointer', 
+          padding: '10px', 
+          margin: '5px', 
+          border: '1px solid #ccc', 
+          borderRadius: '5px',
+        }}
+      >
+        Join a Group
       </div>
     </div>
   );
