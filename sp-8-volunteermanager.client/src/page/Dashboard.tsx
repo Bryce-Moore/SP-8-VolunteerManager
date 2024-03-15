@@ -1,18 +1,21 @@
 // Dashboard.tsx
 import React, { useEffect, useState } from 'react';
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import GroupMenu from '../component/GroupMenu';
 import CreateGroup from '../component/CreateGroup';
+import JoinGroup from '../component/JoinGroup';
+import Invite from '../component/Invite';
+import ManageMembership from '../component/ManagerMembership';
+import ManageMembers from '../component/ManageMembers';
+
+const accountID = sessionStorage.getItem('accountID');
 
 // Placeholder components for the dashboard tabs
 // TODO: Make components for these services
 const SubmitShifts = () => <div>Submit Shifts</div>;
-const ManageMembership = () => <div>Manage Membership</div>;
 const Submissions = () => <div>Submissions</div>;
 const Reports = () => <div>Reports</div>;
-const ManageMembers = () => <div>Manage Members</div>;
-const Invite = () => <div>Invite</div>;
 
 interface Group {
   id: string;
@@ -29,6 +32,8 @@ export const Dashboard: React.FC = () => {
   const [tabs, setTabs] = useState<Tab[]>([]); // State of the selected tab
   const [groups, setGroups] = useState<Group[]>([]); // State of the user's groups
   const [currentGroup, setCurrentGroup] = useState<Group | null>(null); // State of the currently selected group
+  
+  const navigate = useNavigate(); 
 
   // IMPORTANT: Each service for a group is accessible by the tab buttons
 
@@ -38,6 +43,9 @@ export const Dashboard: React.FC = () => {
       try {
         // Returns an array of all the groupIDs, group names, and roles associated with the user
         const response = await axios.get('http://10.69.40.5:8000/api/user/groups/', {
+          params: {
+            accountID: accountID
+          },
           headers: { 'Content-Type': 'application/json' }
         });
         const fetchedGroups: Group[] = Array.isArray(response.data) ? response.data : [];
@@ -58,8 +66,8 @@ export const Dashboard: React.FC = () => {
     if (currentGroup) {
       adjustTabsForRole(currentGroup.role);
     } else {
-      // If there's no current group, show CreateGroup
-      setTabs([{ name: 'Create Group', link: 'create-group' }]);
+      // If there's no current group, show JoinGroup
+      setTabs([{ name: 'Join Group', link: 'join-group' }]);
     }
   }, [currentGroup]); // Listen for changes to currentGroup
 
@@ -75,14 +83,20 @@ export const Dashboard: React.FC = () => {
     }
   };
 
+  const handleGroupLeft = () => {
+    setCurrentGroup(null);
+    setTabs([{ name: 'Join Group', link: 'join-group' }]); // Reset tab to default state
+    navigate('/join-group');
+  };
+
   if (!currentGroup) {
-    // Directly render CreateGroup if no groups are loaded or if user has no groups
-    return <CreateGroup />;
+    // Directly render JoinGroup if no groups are loaded or if user has no groups
+    return <JoinGroup />;
   }
 
   return (
     <div style={{ display: 'flex' }}>
-      <GroupMenu currentGroup={currentGroup} groups={groups} onSelectGroup={(id, name, role) => setCurrentGroup({id, name, role})} onCreateGroup={() => setCurrentGroup(null)} />
+      <GroupMenu currentGroup={currentGroup} groups={groups} onSelectGroup={(id, name, role) => setCurrentGroup({id, name, role})} onCreateGroup={() => setCurrentGroup(null)} onJoinGroup={() => setTabs([{ name: 'Join Group', link: 'join-group' }])} />
       <div>
         <nav>
           <ul>
@@ -97,17 +111,18 @@ export const Dashboard: React.FC = () => {
         <Routes>
           {/* Assign each tab to a component */}  
           <Route path="submit-shifts" element={<SubmitShifts />} />
-          <Route path="manage-membership" element={<ManageMembership />} />
+          <Route path="manage-membership" element={<ManageMembership currentGroupId={currentGroup ? currentGroup.id : ''} onGroupLeft={() => handleGroupLeft()} />} />
           {/* Ensure admin-only routes are protected */}
           {currentGroup.role === 'admin' && (
             <>
               <Route path="submissions" element={<Submissions />} />
               <Route path="reports" element={<Reports />} />
-              <Route path="manage-members" element={<ManageMembers />} />
-              <Route path="invite" element={<Invite />} />
+              <Route path="manage-members" element={<ManageMembers currentGroupId={currentGroup.id}/>} />
+              <Route path="invite" element={<Invite currentGroupId={currentGroup.id}/>} />
             </>
           )}
           <Route path="create-group" element={<CreateGroup />} />
+          <Route path="join-group" element={<JoinGroup />} />
         </Routes>
       </div>
     </div>
