@@ -28,7 +28,9 @@ const JoinGroup = () => {
       });
 
       alert('Joined group successfully!');
-      navigate('/dashboard');
+      navigate('/dashboard'); // This won't update the Dashboard state with the new group
+      // Will have to manually refresh to see the new group for now
+      // TODO: Callback function
     } catch (error) {
       console.error('Failed to join group', error);
       setError('Failed to join group. Please try again.');

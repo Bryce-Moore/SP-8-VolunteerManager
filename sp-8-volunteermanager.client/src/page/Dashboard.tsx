@@ -6,7 +6,7 @@ import GroupMenu from '../component/GroupMenu';
 import CreateGroup from '../component/CreateGroup';
 import JoinGroup from '../component/JoinGroup';
 import Invite from '../component/Invite';
-import ManageMembership from '../component/ManagerMembership';
+import ManageMembership from '../component/ManageMembership';
 import ManageMembers from '../component/ManageMembers';
 
 const accountID = sessionStorage.getItem('accountID');
@@ -32,7 +32,7 @@ export const Dashboard: React.FC = () => {
   const [tabs, setTabs] = useState<Tab[]>([]); // State of the selected tab
   const [groups, setGroups] = useState<Group[]>([]); // State of the user's groups
   const [currentGroup, setCurrentGroup] = useState<Group | null>(null); // State of the currently selected group
-  
+
   const navigate = useNavigate(); 
 
   // IMPORTANT: Each service for a group is accessible by the tab buttons
