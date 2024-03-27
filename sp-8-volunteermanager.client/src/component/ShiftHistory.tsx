@@ -9,6 +9,7 @@ interface Shift {
   endTime: string;
   totalTime: string;
   status: 'Approved' | 'Denied' | 'Pending';
+  email: string;
 }
 
 interface Props {

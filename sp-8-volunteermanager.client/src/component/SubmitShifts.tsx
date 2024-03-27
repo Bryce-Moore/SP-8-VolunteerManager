@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 interface Props {
-    currentGroupId: string; 
+  currentGroupId: string; 
 }
 
 const SubmitShifts: React.FC<Props> = ({ currentGroupId }) => {

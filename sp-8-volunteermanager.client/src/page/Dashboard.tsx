@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate, Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import './Dashboard.css';
 import GroupMenu from '../component/GroupMenu';
 import CreateGroup from '../component/CreateGroup';
 import JoinGroup from '../component/JoinGroup';
@@ -104,24 +105,28 @@ export const Dashboard: React.FC = () => {
   console.log("Current Group ID before passing to Invite:", currentGroup?.group_id);
 
   return (
-    <div style={{ display: 'flex' }}>
-      <GroupMenu 
-        currentGroup={currentGroup} 
-        groups={groups} 
-        onSelectGroup={(group_id, name, role) => setCurrentGroup({ group_id, name, role })} 
-        onCreateGroup={() => navigate('create-group')} // Adjusted to navigate to create group view
-        onJoinGroup={() => navigate('join-group')} // Adjusted for clarity, though it may be redundant based on your routing setup
-      />
-      <nav>
-      <ul>
-        {tabs.map((tab, index) => (
-          <li key={index}>
-            <Link to={tab.link}>{tab.name}</Link>
-          </li>
-        ))}
-      </ul>
-    </nav>
-      <div>
+    <div className="layoutContainer">
+      <div className="groupMenuContainer">
+        <GroupMenu 
+          currentGroup={currentGroup} 
+          groups={groups} 
+          onSelectGroup={(group_id, name, role) => setCurrentGroup({ group_id, name, role })} 
+          onCreateGroup={() => navigate('create-group')} // Adjusted to navigate to create group view
+          onJoinGroup={() => navigate('join-group')} // Adjusted for clarity, though it may be redundant based on your routing setup
+        />
+      </div>
+      <div className="tabsNavBar">
+        <nav>
+          <ul>
+            {tabs.map((tab, index) => (
+              <li key={index}>
+                <Link to={tab.link}>{tab.name}</Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+      <div className="serviceContainer">
         <Routes>
           {/* Assign each tab to a component */} 
           {currentGroup != null && (

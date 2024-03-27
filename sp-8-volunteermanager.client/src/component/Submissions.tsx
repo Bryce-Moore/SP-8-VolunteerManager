@@ -9,7 +9,7 @@ interface Shift {
   endTime: string;
   totalTime: string;
   status: 'Approved' | 'Denied' | 'Pending';
-  submitterName: string; // Assuming each shift includes the name of the submitter
+  email: string;
 }
 
 interface Props {
@@ -58,7 +58,7 @@ const Submissions: React.FC<Props> = ({ currentGroupId }) => {
     }
 
     if (nameFilter) {
-      filteredShifts = filteredShifts.filter(shift => shift.submitterName.toLowerCase().includes(nameFilter.toLowerCase()));
+      filteredShifts = filteredShifts.filter(shift => shift.email.toLowerCase().includes(nameFilter.toLowerCase()));
     }
 
     setDisplayedShifts(filteredShifts);
@@ -68,10 +68,10 @@ const Submissions: React.FC<Props> = ({ currentGroupId }) => {
     filterShifts(); // Re-filter whenever filter criteria change
   }, [filterDateStart, filterDateEnd, nameFilter, allShifts]);
 
-  const updateShiftStatus = async (shiftId: string, newStatus: 'Approved' | 'Denied') => {
+  const updateShiftStatus = async (shift_id: string, newStatus: 'Approved' | 'Denied') => {
     try {
       await axios.patch(`http://10.69.40.5:8000/api/shifts/update-status`, {
-        shiftId,
+        shift_id,
         status: newStatus,
         auth_token,
       }, {
@@ -112,7 +112,7 @@ const Submissions: React.FC<Props> = ({ currentGroupId }) => {
       <ul>
         {displayedShifts.map(shift => (
           <li key={shift.id}>
-            <div>{shift.date} - {shift.startTime} to {shift.endTime} ({shift.totalTime}) by {shift.submitterName}</div>
+            <div>{shift.date} - {shift.startTime} to {shift.endTime} ({shift.totalTime}) by {shift.email}</div>
             <div>Status: {shift.status}</div>
             {shift.status === 'Pending' && (
               <>

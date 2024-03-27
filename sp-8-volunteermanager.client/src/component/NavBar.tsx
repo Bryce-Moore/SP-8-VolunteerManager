@@ -1,7 +1,9 @@
-import React from 'react';
-
 const NavBar = () => {
+  
+  const isLoggedIn = sessionStorage.getItem('auth_token') !== null; // To determine if the user's logged in
+
   const handleLogout = () => {
+
     // Clear session storage
     sessionStorage.clear();
     
@@ -11,7 +13,13 @@ const NavBar = () => {
 
   return (
     <nav>
-            <button onClick={handleLogout}>Log Out</button>
+      <h1>Volunteer Manager App</h1> {/* placeholder title/logo */}
+
+      {/* Logout button is conditionally rendered */}
+      {isLoggedIn && ( 
+        <button onClick={handleLogout}>Log Out</button> 
+      )}
+      
     </nav>
   );
 };
