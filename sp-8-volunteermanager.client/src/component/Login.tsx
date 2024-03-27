@@ -26,15 +26,11 @@ function Login() {
       });
       
       // Extract the auth_token from the response
-      const { auth_token } = response.data;
+      const { auth_token, account_id } = response.data;
       
-      // Save the auth_token to session storage
+      // Save the auth_token + account_id to session storage
       sessionStorage.setItem('auth_token', auth_token);
-
-      if (auth_token) {
-        // Set the token in the axios header
-        axios.defaults.headers.common['Authorization'] = `Bearer ${auth_token}`;
-      }
+      sessionStorage.setItem('account_id', account_id);
 
       alert('Login successful!');
       console.log('Login successful!');

@@ -3,11 +3,13 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 interface Member {
-  id: string;
+  account_id: string;
+  email: string;
   firstName: string;
   lastName: string;
-  email: string;
-  role: 'admin' | 'user';
+  phone: string;
+  created_at: string;
+  updated_at: string;
 }
 
 interface Props {
@@ -16,17 +18,23 @@ interface Props {
 
 const ManageMembers: React.FC<Props> = ({ currentGroupId }) => {
   const [members, setMembers] = useState<Member[]>([]);
+  const auth_token = sessionStorage.getItem('auth_token');
 
   useEffect(() => {
+    
     const fetchMembers = async () => {
       try {
-        const response = await axios.get(`http://10.69.40.5:8000/api/group/${currentGroupId}/members/`, { // Fetch members of the group
+        const response = await axios.get(`http://10.69.40.5:8000/api/group/members`, { // Fetch all members of this group
+          params: {
+            group_id: currentGroupId,
+            auth_token: auth_token,
+          },
           headers: {
             'Content-Type': 'application/json',
           },
         });
+        console.log('Fetched members: ', response.data);
         setMembers(response.data);
-        // The response expects an array of members objects { id, firstName, lastName, email, role }
       } catch (error) {
         console.error("Failed to fetch group members", error);
       }
@@ -45,7 +53,7 @@ const ManageMembers: React.FC<Props> = ({ currentGroupId }) => {
       });
 
       alert(`Member ${email} removed successfully.`);
-      setMembers(members.filter(member => member.id !== id)); // Remove the member from the state
+      setMembers(members.filter(member => member.account_id !== id)); // Remove the member from the state
     } catch (error) {
       console.error("Failed to remove member", error);
       alert('Failed to remove the member. Please try again.');
@@ -61,7 +69,7 @@ const ManageMembers: React.FC<Props> = ({ currentGroupId }) => {
         },
       });
       alert(`Member ${email} promoted to admin successfully.`);
-      setMembers(members.map(member => member.id === id ? { ...member, role: 'admin' } : member)); // Update the user's role in the state
+      setMembers(members.map(member => member.account_id === id ? { ...member, role: 'admin' } : member)); // Update the user's role in the state
     } catch (error) {
       console.error("Failed to promote member", error);
       alert('Failed to promote the member. Please try again.');
@@ -71,13 +79,13 @@ const ManageMembers: React.FC<Props> = ({ currentGroupId }) => {
     <div>
         <h2>Group Members</h2>
         <ul>
-        {members.map((member, index) => (
-            <li key={index}>
-                {member.firstName} {member.lastName} ({member.email})
-                <button onClick={() => removeMember(member.id, member.email)}>Remove</button>
-                {member.role === 'user' && <button onClick={() => promoteMember(member.id, member.email)}>Promote</button>}
-            </li>
-        ))}
+          {members.map((member, index) => (
+              <li key={index}>
+                  {member.firstName} {member.lastName} ({member.email})
+                  <button onClick={() => removeMember(member.account_id, member.email)}>Remove</button>
+                  {<button onClick={() => promoteMember(member.account_id, member.email)}>Promote</button>}
+              </li>
+          ))}
         </ul>
     </div>
   );

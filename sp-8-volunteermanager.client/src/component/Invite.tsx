@@ -9,24 +9,33 @@ const Invite: React.FC<Props> = ({ currentGroupId }) => { // Pass the current gr
   const [inviteCode, setInviteCode] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const auth_token = sessionStorage.getItem('auth_token');
+  const account_id = sessionStorage.getItem('account_id');
 
   useEffect(() => {
     const fetchInviteCode = async () => {
-      if (!currentGroupId) return; // if currentGroupId is not set
-
-      setIsLoading(true);
-      setError('');
+      
+      setIsLoading(true); // Set loading to true at the start of the operation
+      setError(''); // Clear any previous errors
+      
+      console.log("Current Group ID inside Invite:", currentGroupId);
 
       try {
-        const response = await axios.get(`http://10.69.40.5:8000/api/group/${currentGroupId}/invite/`, { // Fetch the invite code
+        const response = await axios.get(`http://10.69.40.5:8000/api/group/invite`, { 
+          params: {
+            group_id: currentGroupId,
+            auth_token: auth_token,
+            account_id: account_id,
+          },
           headers: { 'Content-Type': 'application/json' },
         });
-        setInviteCode(response.data.inviteCode);
+        console.log('Invite code fetched:', response.data.invite_code);
+        setInviteCode(response.data.invite_code); // Assume your backend is structured to return { inviteCode: "someCode" }
       } catch (error) {
         console.error('Failed to fetch invite code', error);
         setError('Failed to fetch invite code. Please try again.');
       } finally {
-        setIsLoading(false);
+        setIsLoading(false); // Ensure loading is set to false after the operation completes
       }
     };
 

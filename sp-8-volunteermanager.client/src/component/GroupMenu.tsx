@@ -1,11 +1,13 @@
+// GroupMenu.tsx
+
 interface Group {
-  id: string;
+  group_id: string;
   name: string;
   role: string;
 }
 
 interface GroupMenuProps {
-  currentGroup: Group;
+  currentGroup: Group | null;
   onSelectGroup: (id: string, name: string, role: string) => void;
   groups: Group[];
   onCreateGroup: () => void;
@@ -17,15 +19,15 @@ const GroupMenu: React.FC<GroupMenuProps> = ({ currentGroup, groups, onSelectGro
     <div>
       {groups.map(group => ( // Lists all the groups with handlers for button clicks
         <div 
-          key={group.id} 
-          onClick={() => onSelectGroup(group.id, group.name, group.role)} // Updates the selected group in Dashboard.tsx
+          key={group.group_id} 
+          onClick={() => onSelectGroup(group.group_id, group.name, group.role)} // Updates the selected group in Dashboard.tsx
           style={{
             cursor: 'pointer', 
             padding: '10px', 
             margin: '5px', 
             border: '1px solid #ccc', 
             borderRadius: '5px',
-            textDecoration: group.id === currentGroup.id ? 'underline' : 'none', // Underlines the currently selected group
+            textDecoration: group.group_id === currentGroup?.group_id ? 'underline' : 'none', // Underlines the currently selected group
           }}
         >
           {group.name}
