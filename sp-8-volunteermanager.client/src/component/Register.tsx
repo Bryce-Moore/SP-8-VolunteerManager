@@ -38,10 +38,10 @@ function Register({ onRegistrationSuccess }: RegisterProps) {
       });
 
       // Successful submission
-      const { accountID } = response.data;
+      const { account_id } = response.data;
       
       // Save the accountID to session storage
-      sessionStorage.setItem('accountID', accountID);
+      sessionStorage.setItem('account_id', account_id);
 
       alert('Registration successful!');
       onRegistrationSuccess(); // Call the function passed as a prop to switch back to login view

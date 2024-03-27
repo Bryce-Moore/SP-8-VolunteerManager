@@ -12,15 +12,15 @@ const JoinGroup = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const authToken = sessionStorage.getItem('auth_token');
+    const auth_token = sessionStorage.getItem('auth_token');
 
     setIsLoading(true);
     setError('');
 
     try {
       await axios.post('http://10.69.40.5:8000/api/group/join/', { // POST join group form (invite code + auth token)
-        code: groupCode,
-        auth_token: authToken,
+        invite_code: groupCode,
+        auth_token: auth_token,
       }, {
         headers: {
           'Content-Type': 'application/json',
@@ -28,9 +28,8 @@ const JoinGroup = () => {
       });
 
       alert('Joined group successfully!');
-      navigate('/dashboard'); // This won't update the Dashboard state with the new group
-      // Will have to manually refresh to see the new group for now
-      // TODO: Callback function
+      navigate('/dashboard', { replace: true }); // Use replace to navigate without pushing a new entry onto the history stack
+      window.location.reload(); // This forces the page to reload, which in turn refreshes the groups state
     } catch (error) {
       console.error('Failed to join group', error);
       setError('Failed to join group. Please try again.');

@@ -1,0 +1,46 @@
+update: /api/auth/ return the accountID too
+
+GET: /api/user/groups/
+Returns all of the groups that a user is in
+key:
+- accountID 
+response body:
+(an array of)
+- groupID
+- (group) name
+- role
+
+
+GET: /api/group/${GroupId}/invite/
+Returns the invite code for a group
+response body:
+- invite code
+
+
+POST: /api/group/join/
+User joins a group with an invite code
+key: 
+- invite code
+- auth token
+- accountID (unless thats derived from auth token)
+
+
+GET: /api/group/${GroupId}/members/
+Returns all of the members of a group
+key:
+- auth token
+response body:
+(an array of)
+- id (accountID)
+- firstName
+- lastName
+- email
+- role
+
+
+DELETE: /api/group/${GroupId}/members/remove/${accountID}
+Removes a user from the group (for admins to remove and user's to voluntarily leave)
+
+
+PATCH: /api/group/${GroupId}/members/promote/${accountID}/
+Updates a user's role from 'user' to 'admin'

@@ -1,3 +1,4 @@
+// CreateGroup.tsx
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -30,6 +31,8 @@ const CreateGroup = () => {
           'Content-Type': 'application/json',
         },
       });
+
+      console.log(`Group ${groupName} created.`)
 
       // Clear the form and navigate the user away upon successful creation
       setGroupName('');
