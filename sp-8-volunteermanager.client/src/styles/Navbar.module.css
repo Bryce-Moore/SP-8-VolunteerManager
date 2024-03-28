@@ -12,6 +12,7 @@
     align-items: center;
     justify-content: space-between;
     height: 75px;
+    box-shadow: 5px 10px 10px rgba(0,0,0,0.2);
 }
 
 .button {
@@ -28,4 +29,5 @@
 
 .button:hover {
     background-color: #044387;
+    color: ghostwhite;
 }
