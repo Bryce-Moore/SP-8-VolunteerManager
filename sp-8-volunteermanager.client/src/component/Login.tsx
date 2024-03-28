@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import styles from '../styles/Login.module.css';
 
 function Login() {
   const [credentials, setCredentials] = useState({ email: '', password: '' }); // State for managing form fields
@@ -54,25 +55,27 @@ function Login() {
   return (
     <div>
       <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <input 
-          type="email" 
-          name="email" 
-          placeholder="Email" 
-          value={credentials.email} 
-          onChange={handleChange} 
-          required 
+        <form onSubmit={handleSubmit} className={styles.form}>
+        <input
+            className={styles.input}
+            type="email" 
+            name="email" 
+            placeholder="Email" 
+            value={credentials.email} 
+            onChange={handleChange} 
+            required 
         />
         <input 
-          type="password" 
-          name="password" 
-          placeholder="Password" 
-          value={credentials.password} 
-          onChange={handleChange} 
-          required 
+            className={styles.input}
+            type="password" 
+            name="password" 
+            placeholder="Password" 
+            value={credentials.password} 
+            onChange={handleChange} 
+            required 
         />
-        <button type="submit">Login</button>
-      </form>
+        <button className={styles.button} type="submit">Login</button>
+        </form>
     </div>
   );
 }

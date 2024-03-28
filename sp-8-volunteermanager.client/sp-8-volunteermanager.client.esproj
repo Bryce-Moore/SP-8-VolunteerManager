@@ -11,8 +11,6 @@
   <ItemGroup>
     <Folder Include="public\" />
     <Folder Include="src\assets\" />
-    <Folder Include="src\components\AuditNotes\Accept\" />
-    <Folder Include="src\components\AuditNotes\Decline\" />
-    <Folder Include="src\components\AuditNotes\AuditNote\" />
+    <Folder Include="src\components\" />
   </ItemGroup>
 </Project>

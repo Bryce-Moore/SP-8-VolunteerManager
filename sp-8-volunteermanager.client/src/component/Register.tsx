@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import styles from '../styles/Register.module.css';
 interface RegisterProps {
   onRegistrationSuccess: () => void;
 }
@@ -62,15 +62,15 @@ function Register({ onRegistrationSuccess }: RegisterProps) {
   return (
     <div>
       <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
-        <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
-        <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
-        <input type="text" name="first_name" placeholder="First Name" value={formData.first_name} onChange={handleChange} required />
-        <input type="text" name="last_name" placeholder="Last Name" value={formData.last_name} onChange={handleChange} required />
-        <input type="text" name="security_question_1" placeholder="Security Question 1" value={formData.security_question_1} onChange={handleChange} required />
-        <input type="text" name="security_question_2" placeholder="Security Question 2" value={formData.security_question_2} onChange={handleChange} required />
-        <input type="tel" name="phone_number" placeholder="Phone Number" value={formData.phone_number} onChange={handleChange} required />
-        <button type="submit">Register</button>
+          <form className={styles.form}  onSubmit={handleSubmit}>
+        <input className={styles.input} type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
+        <input className={styles.input} type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
+        <input className={styles.input} type="text" name="first_name" placeholder="First Name" value={formData.first_name} onChange={handleChange} required />
+        <input className={styles.input} type="text" name="last_name" placeholder="Last Name" value={formData.last_name} onChange={handleChange} required />
+        <input className={styles.input} type="text" name="security_question_1" placeholder="Security Question 1" value={formData.security_question_1} onChange={handleChange} required />
+        <input className={styles.input} type="text" name="security_question_2" placeholder="Security Question 2" value={formData.security_question_2} onChange={handleChange} required />
+        <input className={styles.input} type="tel" name="phone_number" placeholder="Phone Number" value={formData.phone_number} onChange={handleChange} required />
+        <button className={styles.button} type="submit">Register</button>
       </form>
     </div>
   );

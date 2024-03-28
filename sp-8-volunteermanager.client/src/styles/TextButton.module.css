@@ -1,0 +1,14 @@
+.textButton {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    transition: color 0.3s;
+}
+
+.textButton:hover {
+    color: #007bff;
+}

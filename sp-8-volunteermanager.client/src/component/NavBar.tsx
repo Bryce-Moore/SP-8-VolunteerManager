@@ -1,3 +1,5 @@
+import styles from '../styles/Navbar.module.css';
+
 const NavBar = () => {
   
   const isLoggedIn = sessionStorage.getItem('auth_token') !== null; // To determine if the user's logged in
@@ -12,12 +14,11 @@ const NavBar = () => {
   };
 
   return (
-    <nav>
-      <h1>Volunteer Manager App</h1> {/* placeholder title/logo */}
+    <nav className={styles.background}>
+      <h1 className={styles.title}>Volunteer Manager App</h1>
 
-      {/* Logout button is conditionally rendered */}
       {isLoggedIn && ( 
-        <button onClick={handleLogout}>Log Out</button> 
+        <button className={styles.button} onClick={handleLogout}>Log Out</button> 
       )}
       
     </nav>

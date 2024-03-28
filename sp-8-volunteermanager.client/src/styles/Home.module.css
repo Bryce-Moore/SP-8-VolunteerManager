@@ -1,0 +1,18 @@
+.homeContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to bottom right, #006400, #003300);
+    color: #16161d; 
+    text-align: center; 
+    margin-top: -75px;
+}
+
+.contentBox {
+    width: 300px; 
+    background-color: #dadada;
+    padding: 20px; 
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75); 
+    border-radius: 10px; 
+}
