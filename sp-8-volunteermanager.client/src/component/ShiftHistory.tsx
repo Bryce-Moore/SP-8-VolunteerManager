@@ -4,13 +4,13 @@ import axios from 'axios';
 import common from '../styles/Common.module.css';
 
 interface Shift {
-  id: string;
+  shift_id: string;
   date: string;
-  startTime: string;
-  endTime: string;
-  totalTime: string;
+  start_time: string;
+  end_time: string;
+  total_time: string;
   status: 'Approved' | 'Denied' | 'Pending';
-  email: string;
+  account_id: string;
 }
 
 interface Props {
@@ -52,7 +52,7 @@ const ShiftHistory: React.FC<Props> = ({ currentGroupId }) => {
         },
       });
       // Remove the cancelled shift from the list
-      setShifts(shifts.filter(shift => shift.id !== shiftId));
+      setShifts(shifts.filter(shift => shift.shift_id !== shiftId));
       alert('Shift cancelled successfully.');
     } catch (error) {
       console.error("Failed to cancel shift", error);
@@ -65,12 +65,12 @@ const ShiftHistory: React.FC<Props> = ({ currentGroupId }) => {
       <h2>Shift History</h2>
       <ul>
         {shifts.map(shift => (
-          <li key={shift.id}>
+          <li key={shift.shift_id}>
             <div>Date: {shift.date}</div>
-            <div>Start Time: {shift.startTime}</div>
-            <div>End Time: {shift.endTime}</div>
-            <div>Total Time: {shift.totalTime}</div>
-            <div>Status: {shift.status}{shift.status === 'Pending' && <button onClick={() => cancelShift(shift.id)}>Cancel Shift</button>}</div>
+            <div>Start Time: {shift.start_time}</div>
+            <div>End Time: {shift.end_time}</div>
+            <div>Total Time: {shift.total_time}</div>
+            <div>Status: {shift.status}{shift.status === 'Pending' && <button onClick={() => cancelShift(shift.shift_id)}>Cancel Shift</button>}</div>
           </li>
         ))}
       </ul>
