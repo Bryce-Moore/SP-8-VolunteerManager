@@ -1,8 +1,22 @@
+import { useState, useEffect } from 'react';
 import styles from '../styles/Navbar.module.css';
 
 const NavBar = () => {
   
-  const isLoggedIn = sessionStorage.getItem('auth_token') !== null; // To determine if the user's logged in
+  const [isLoggedIn, setIsLoggedIn] = useState(sessionStorage.getItem('auth_token') !== null); // To determine if the user's logged in
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setIsLoggedIn(sessionStorage.getItem('auth_token') !== null);
+    };
+
+    // Event listener for changes in session storage
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);  
 
   const handleLogout = () => {
 

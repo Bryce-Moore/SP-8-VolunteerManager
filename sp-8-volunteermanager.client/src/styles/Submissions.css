@@ -1,0 +1,52 @@
+.submissions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.submissions > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 500px;
+    width: 100%; 
+    margin-bottom: 20px; 
+}
+
+.submissions input[type="date"],
+.submissions input[type="text"] {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 15px; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.submissions button {
+    margin-top: 20px; 
+    width: auto; 
+    align-self: center; 
+}
+
+.submissions ul {
+    list-style-type: none; 
+    padding: 0;
+    width: 100%;
+    max-width: 500px; 
+    margin: 0 auto; 
+}
+
+.submissions li {
+    margin-bottom: 20px; 
+    text-align: left; 
+}
+
+.submissions li > div {
+    margin-bottom: 5px; 
+}
+
+.submissions button {
+    margin-top: 10px;
+    margin-right: 5px;
+}

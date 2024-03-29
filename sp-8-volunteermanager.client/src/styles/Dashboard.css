@@ -1,0 +1,70 @@
+.layoutContainer {
+    display: flex; 
+    height: 100vh;
+}
+
+.groupMenuContainer {
+    width: 20%;
+    height: 100%;
+}
+
+.serviceContainer {
+    width: 100%; 
+    height: 90vh; 
+    overflow-y: auto;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+}
+
+.serviceContainer div h2 {
+    text-align: center; 
+}
+
+.tabsNavBar {
+    width: 100%; 
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #b7b7b7;
+}
+
+.tabsNavBar {
+    width: 100%; 
+    display: flex; 
+    justify-content: center; 
+}
+
+.tabsNavBar nav {
+    width: 100%;
+}
+
+.tabsNavBar nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-between; 
+    width: 100%; 
+}
+
+.tabsNavBar nav ul li {
+    flex: 1; 
+    text-align: center; 
+}
+
+.tabsNavBar nav ul li a {
+    text-decoration: none;
+    color: black;
+    display: block; 
+}
+
+.tabsNavBar nav ul li a:hover {
+    text-decoration: underline;
+}
+
+.mainContentContainer {
+    display: flex; 
+    flex-direction: column; 
+    width: 80%; 
+}

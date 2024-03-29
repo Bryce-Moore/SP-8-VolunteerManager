@@ -1,7 +1,7 @@
 // src/components/Submissions.tsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import common from '../styles/Common.module.css'
+import common from '../styles/Common.module.css';
 
 interface Shift {
   id: string;
