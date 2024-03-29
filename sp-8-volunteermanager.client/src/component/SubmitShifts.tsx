@@ -1,4 +1,3 @@
-// src/components/SubmitShifts.tsx
 import React, { useState } from 'react';
 import axios from 'axios';
 import common from '../styles/Common.module.css';
@@ -16,15 +15,28 @@ const SubmitShifts: React.FC<Props> = ({ currentGroupId }) => {
   const auth_token = sessionStorage.getItem('auth_token');
   const account_id = sessionStorage.getItem('account_id');
 
+  // Convert 24-hour time format to 12-hour format with AM/PM
+  const convertTimeTo12HrFormat = (time24: any) => {
+    const [hours, minutes] = time24.split(':');
+    const hoursInt = parseInt(hours, 10);
+    const suffix = hoursInt >= 12 ? "PM" : "AM";
+    const adjustedHours = ((hoursInt + 11) % 12 + 1); // Converts 0 to 12 for 12AM
+    return `${adjustedHours.toString().padStart(2, '0')}:${minutes} ${suffix}`;
+  };
+
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     setIsLoading(true);
 
+    // Convert startTime and endTime to 12-hour format before sending
+    const formattedStartTime = convertTimeTo12HrFormat(startTime);
+    const formattedEndTime = convertTimeTo12HrFormat(endTime);
+
     try {
-      const response = await axios.post('http://10.69.40.5:8000/api/shifts/submit', {
+      const response = await axios.post('http://10.69.40.5:8000/api/shifts/submit/', {
         date,
-        start_time: startTime,
-        end_time: endTime,
+        start_time: formattedStartTime,
+        end_time: formattedEndTime,
         group_id: currentGroupId,
         auth_token,
         account_id
@@ -33,7 +45,9 @@ const SubmitShifts: React.FC<Props> = ({ currentGroupId }) => {
           'Content-Type': 'application/json',
         },
       });
+
       // Handle response
+      console.log('Shift submission sent. Waiting for response...')
       console.log(response.data); // For debugging
       setMessage('Shift submitted successfully!');
     } catch (error) {

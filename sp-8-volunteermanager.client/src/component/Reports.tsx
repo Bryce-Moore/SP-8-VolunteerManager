@@ -17,13 +17,13 @@ const Reports: React.FC = () => {
     try {
       const response = await axios.get(`http://10.69.40.5:8000/api/reports/generate`, {
         params: {
+          auth_token,
           start_date: startDate,
           end_date: endDate,
           email: emails.split(',').map(email => email.trim()), // Assuming the API can handle an array of emails
         },
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${auth_token}`,
         },
         responseType: 'blob', // Important for handling binary data
       });

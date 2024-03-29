@@ -99,8 +99,6 @@
       navigate('/join-group');
     };
 
-    console.log("Current Group ID before passing to Invite:", currentGroup?.group_id);
-
     return (
       <div className="layoutContainer">
         <div className="groupMenuContainer">

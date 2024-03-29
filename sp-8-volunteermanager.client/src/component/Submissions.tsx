@@ -4,13 +4,13 @@ import axios from 'axios';
 import common from '../styles/Common.module.css';
 
 interface Shift {
-  id: string;
+  shift_id: string;
   date: string;
-  startTime: string;
-  endTime: string;
-  totalTime: string;
+  start_time: string;
+  end_time: string;
+  total_time: string;
   status: 'Approved' | 'Denied' | 'Pending';
-  email: string;
+  account_id: string;
 }
 
 interface Props {
@@ -59,7 +59,7 @@ const Submissions: React.FC<Props> = ({ currentGroupId }) => {
     }
 
     if (nameFilter) {
-      filteredShifts = filteredShifts.filter(shift => shift.email.toLowerCase().includes(nameFilter.toLowerCase()));
+      filteredShifts = filteredShifts.filter(shift => shift.account_id.toLowerCase().includes(nameFilter.toLowerCase()));
     }
 
     setDisplayedShifts(filteredShifts);
@@ -71,7 +71,7 @@ const Submissions: React.FC<Props> = ({ currentGroupId }) => {
 
   const updateShiftStatus = async (shift_id: string, newStatus: 'Approved' | 'Denied') => {
     try {
-      await axios.patch(`http://10.69.40.5:8000/api/shifts/update-status`, {
+      await axios.post(`http://10.69.40.5:8000/api/shifts/update-status`, {
         shift_id,
         status: newStatus,
         auth_token,
@@ -115,13 +115,14 @@ const Submissions: React.FC<Props> = ({ currentGroupId }) => {
       </div>
       <ul>
         {displayedShifts.map(shift => (
-          <li key={shift.id}>
-            <div>{shift.date} - {shift.startTime} to {shift.endTime} ({shift.totalTime}) by {shift.email}</div>
+          <li key={shift.shift_id}>
+            {/* Ideally we switch change account_id to email for this display */}
+            <div>{shift.date} - {shift.start_time} to {shift.end_time} ({shift.total_time}) by {shift.account_id}</div>
             <div>Status: {shift.status}</div>
             {shift.status === 'Pending' && (
               <>
-                <button onClick={() => updateShiftStatus(shift.id, 'Approved')}>Approve</button>
-                <button onClick={() => updateShiftStatus(shift.id, 'Denied')}>Deny</button>
+                <button onClick={() => updateShiftStatus(shift.shift_id, 'Approved')}>Approve</button>
+                <button onClick={() => updateShiftStatus(shift.shift_id, 'Denied')}>Deny</button>
               </>
             )}
           </li>

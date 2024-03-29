@@ -25,7 +25,7 @@ const ShiftHistory: React.FC<Props> = ({ currentGroupId }) => {
   useEffect(() => {
     const fetchShiftHistory = async () => {
       try {
-        const response = await axios.get(`http://10.69.40.5:8000/api/shifts/history`, {
+        const response = await axios.get(`http://10.69.40.5:8000/api/shifts/submissions`, {
           params: {
             group_id: currentGroupId,
             auth_token,
