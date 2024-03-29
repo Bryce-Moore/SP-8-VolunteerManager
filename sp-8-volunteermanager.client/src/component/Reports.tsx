@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/Reports.css';
+import common from '../styles/Common.module.css';
 
 const Reports: React.FC = () => {
   const [startDate, setStartDate] = useState('');
@@ -39,25 +40,25 @@ const Reports: React.FC = () => {
   };
 
   return (
-    <div className='reports'>
+    <div className={common.container}>
       <h2>Generate Report</h2>
       <div>
-        <label>
+        <label className={common.inputRow}>
           Start Date:
-          <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} />
+          <input className={common.input} type="date" value={startDate} onChange={e => setStartDate(e.target.value)} />
         </label>
-        <label>
+        <label className={common.inputRow}>
           End Date:
-          <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} />
+          <input  className={common.input} type="date" value={endDate} onChange={e => setEndDate(e.target.value)} />
         </label>
-        <label>
+        <label className={common.inputRow}>
           Emails (comma-separated):
-          <input type="text" value={emails} onChange={e => setEmails(e.target.value)} placeholder="example1@test.com,example2@test.com" />
+          <input className={common.input}  type="text" value={emails} onChange={e => setEmails(e.target.value)} placeholder="example1@test.com, example2@test.com" />
         </label>
-        <button onClick={generateReport} disabled={isLoading}>
-          {isLoading ? 'Generating...' : 'Generate Report'}
-        </button>
       </div>
+      <button className={common.button} onClick={generateReport} disabled={isLoading}>
+          {isLoading ? 'Generating...' : 'Generate Report'}
+      </button>
       {reportUrl && (
         <div>
           <a href={reportUrl} download="report.csv">Download Report</a>
