@@ -1,6 +1,7 @@
 // src/components/ShiftHistory.tsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import common from '../styles/Common.module.css';
 
 interface Shift {
   id: string;
@@ -60,7 +61,7 @@ const ShiftHistory: React.FC<Props> = ({ currentGroupId }) => {
   };
 
   return (
-    <div>
+    <div className={common.container}>
       <h2>Shift History</h2>
       <ul>
         {shifts.map(shift => (

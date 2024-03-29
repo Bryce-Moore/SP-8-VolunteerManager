@@ -12,6 +12,7 @@ import ManageMembers from '../component/ManageMembers';
 import SubmitShifts from '../component/SubmitShifts';
 import ShiftHistory from '../component/ShiftHistory';
 import Submissions from '../component/Submissions';
+import styles from '../styles/Dashboard.module.css';
 
 // Placeholder components for the dashboard tabs
 // TODO: Make components for these services
@@ -87,7 +88,7 @@ export const Dashboard: React.FC = () => {
 
   const adjustTabsForRole = (role: string) => {
     // Tabs for non-admins
-    const baseTabs = [{ name: 'Submit shift(s)', link: 'submit-shifts' }, { name: 'My Shift History', link: 'shift-history' }, { name: 'Manage membership', link: 'manage-membership' }];
+    const baseTabs = [{ name: 'Submit Shift(s)', link: 'submit-shifts' }, { name: 'My Shift History', link: 'shift-history' }, { name: 'Manage membership', link: 'manage-membership' }];
     if (role === 'Admin') {
       // Tabs for admins
       const adminTabs = [...baseTabs, { name: 'Submissions', link: 'submissions' }, { name: 'Reports', link: 'reports' }, { name: 'Manage members', link: 'manage-members' }, { name: 'Invite', link: 'invite' }];
@@ -115,7 +116,7 @@ export const Dashboard: React.FC = () => {
           onJoinGroup={() => navigate('join-group')} // Adjusted for clarity, though it may be redundant based on your routing setup
         />
       </div>
-      <div className="tabsNavBar">
+      <div className={styles.tabsNavBar}>
         <nav>
           <ul>
             {tabs.map((tab, index) => (

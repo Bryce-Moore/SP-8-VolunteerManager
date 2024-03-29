@@ -1,6 +1,7 @@
 // src/components/Submissions.tsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import common from '../styles/Common.module.css'
 
 interface Shift {
   id: string;
@@ -86,28 +87,31 @@ const Submissions: React.FC<Props> = ({ currentGroupId }) => {
   };
 
   return (
-    <div>
+    <div className={common.container}>
       <h2>Shift Submissions</h2>
-      <div>
+      <div >
         <input
           type="date"
           value={filterDateStart}
+          className={common.input}
           onChange={(e) => setFilterDateStart(e.target.value)}
           placeholder="Start Date"
         />
         <input
           type="date"
           value={filterDateEnd}
+          className={common.input}
           onChange={(e) => setFilterDateEnd(e.target.value)}
           placeholder="End Date"
         />
         <input
           type="text"
           value={nameFilter}
+          className={common.input}
           onChange={(e) => setNameFilter(e.target.value)}
           placeholder="Submitter Name"
         />
-        <button onClick={fetchShiftSubmissions}>Filter</button>
+        <button className={common.whiteButton} onClick={fetchShiftSubmissions}>Filter</button>
       </div>
       <ul>
         {displayedShifts.map(shift => (

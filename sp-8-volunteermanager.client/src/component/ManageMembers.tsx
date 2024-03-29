@@ -1,6 +1,7 @@
 // src/components/ManageMembers.tsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import common from '../styles/Common.module.css'
 
 interface Member {
   account_id: string;
@@ -76,14 +77,16 @@ const ManageMembers: React.FC<Props> = ({ currentGroupId }) => {
     }
   };
   return (
-    <div>
+    <div className={common.container}>
         <h2>Group Members</h2>
-        <ul>
+        <ul className={common.groupList}>
           {members.map((member, index) => (
-              <li key={index}>
+              <li className={common.nameItem} key={index}>
                   {member.firstName} {member.lastName} ({member.email})
-                  <button onClick={() => removeMember(member.account_id, member.email)}>Remove</button>
-                  {<button onClick={() => promoteMember(member.account_id, member.email)}>Promote</button>}
+                  <div>
+                      {<button className={common.promoteButton} onClick={() => promoteMember(member.account_id, member.email)}>Promote</button>}
+                      <button className={common.removeButton} onClick={() => removeMember(member.account_id, member.email)}>Remove</button>
+                  </div>
               </li>
           ))}
         </ul>

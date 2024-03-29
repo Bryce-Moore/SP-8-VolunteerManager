@@ -1,6 +1,7 @@
 // src/components/ManageMembership.tsx
 import React from 'react';
 import axios from 'axios';
+import common from '../styles/Common.module.css';
 
 interface ManageMembershipProps {
   currentGroupId: string;
@@ -31,9 +32,9 @@ const ManageMembership: React.FC<ManageMembershipProps> = ({ currentGroupId, onG
   };
 
   return (
-    <div>
-      <h2>Manage Membership</h2>
-      <button onClick={leaveGroup}>Leave Group</button>
+    <div className={common.container}>
+      <h2 className={common.title}>Manage Membership</h2>
+      <button className={common.removeButton} onClick={leaveGroup}>Leave Group</button>
     </div>
   );
 };

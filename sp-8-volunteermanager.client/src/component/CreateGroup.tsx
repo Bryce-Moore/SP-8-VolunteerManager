@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import common from '../styles/Common.module.css';
 
 const CreateGroup = () => {
   const [groupName, setGroupName] = useState('');
@@ -49,30 +50,34 @@ const CreateGroup = () => {
   };
 
   return (
-    <div>
-      <h2>Create a New Group</h2>
+    <div className={common.container}>
+      <h2 className={common.title}>Create a New Group</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="groupName">Group Name:</label>
+      <form onSubmit={handleSubmit} className={common.centerForm}>
+        <div className={common.centerDiv}> 
+          <label htmlFor="groupName" className={common.inputName}>Group Name:</label>
           <input
             id="groupName"
             type="text"
+            className={common.input}
+            placeholder="Name"
             value={groupName}
             onChange={(e) => setGroupName(e.target.value)}
             required
           />
         </div>
-        <div>
-          <label htmlFor="groupDescription">Group Description:</label>
+        <div className={common.centerDiv}>
+          <label htmlFor="groupDescription" className={common.inputName}>Group Description:</label>
           <textarea
             id="groupDescription"
+            className={common.input}
+            placeholder="Description"
             value={groupDescription}
             onChange={(e) => setGroupDescription(e.target.value)}
             required
           />
         </div>
-        <button type="submit" disabled={isLoading}>
+        <button type="submit" disabled={isLoading} className={common.button}>
           {isLoading ? 'Creating...' : 'Create Group'}
         </button>
       </form>

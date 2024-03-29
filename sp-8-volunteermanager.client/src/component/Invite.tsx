@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import common from '../styles/Common.module.css';
 
 interface Props {
   currentGroupId: string; 
@@ -57,10 +58,10 @@ const Invite: React.FC<Props> = ({ currentGroupId }) => { // Pass the current gr
   if (error) return <div>{error}</div>;
 
   return (
-    <div>
+    <div className={common.container}>
       <h2>Group Invite Code</h2>
-      <p>{inviteCode}</p>
-      <button onClick={handleCopy}>Copy Invite Code</button>
+      <p className={common.inputName}>{inviteCode}</p>
+      <button className={common.button} onClick={handleCopy}>Copy Invite Code</button>
     </div>
   );
 };

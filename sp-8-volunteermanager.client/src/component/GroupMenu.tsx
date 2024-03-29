@@ -23,7 +23,7 @@ const GroupMenu: React.FC<GroupMenuProps> = ({ currentGroup, groups, onSelectGro
           key={group.group_id} 
           onClick={() => onSelectGroup(group.group_id, group.name, group.role)} // Updates the selected group in Dashboard.tsx
           style={{
-              backgroundColor: group.group_id === currentGroup?.group_id ? '#044387' : 'transparent',
+              backgroundColor: group.group_id === currentGroup?.group_id ? '#006400' : 'transparent',
               color: group.group_id === currentGroup?.group_id ? 'ghostwhite' : '#0a0a0a'
           }}
         >

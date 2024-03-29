@@ -1,0 +1,41 @@
+.tabsNavBar {
+    height: 100vh;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tabsNavBar nav ul {
+    list-style-type: none;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.tabsNavBar nav ul li {
+    display: inline-block; /* Display tabs inline */
+    margin-right: 20px; /* Space between tabs */
+}
+
+.tabsNavBar nav ul li a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px;
+    display: inline-block;
+}
+
+.tabsNavBar nav ul li button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px; /* Space between link and button */
+}
+
+.tabsNavBar nav ul li button:hover {
+    background-color: #0056b3;  
+}

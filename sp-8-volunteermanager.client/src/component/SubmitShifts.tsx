@@ -1,6 +1,7 @@
 // src/components/SubmitShifts.tsx
 import React, { useState } from 'react';
 import axios from 'axios';
+import common from '../styles/Common.module.css';
 
 interface Props {
   currentGroupId: string; 
@@ -44,22 +45,22 @@ const SubmitShifts: React.FC<Props> = ({ currentGroupId }) => {
   };
 
   return (
-    <div>
+    <div className={common.container}>
       <h2>Submit Shift</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
+      <form className={common.centerForm} onSubmit={handleSubmit}>
+        <label className={common.inputRow}>
           Date:
-          <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+          <input className={common.input} type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
         </label>
-        <label>
+        <label className={common.inputRow}>
           Time Started (e.g., 8:00 AM):
-          <input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} required />
+          <input className={common.input} type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} required />
         </label>
-        <label>
+        <label className={common.inputRow}>
           Time Finished (e.g., 5:00 PM):
-          <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} required />
+          <input className={common.input} type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} required />
         </label>
-        <button type="submit" disabled={isLoading}>
+        <button className={common.button} type="submit" disabled={isLoading}>
           {isLoading ? 'Submitting...' : 'Submit Shift'}
         </button>
       </form>

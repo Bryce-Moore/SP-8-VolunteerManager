@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import common from '../styles/Common.module.css';
 
 const JoinGroup = () => {
   const [groupCode, setGroupCode] = useState('');
@@ -39,23 +40,25 @@ const JoinGroup = () => {
   };
 
   return (
-    <div>
-      <h2>Join a Group</h2>
+    <div className={common.container}>
+      <h2 className={common.title}>Join a Group</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={common.centerForm}>
         <div>
-          <label htmlFor="groupCode">Group Code:</label>
+          <label htmlFor="groupCode" className={common.inputName}>Group Code:</label>
           <input
             id="groupCode"
             type="text"
+            className={common.input}
+            placeholder="Enter Code"
             value={groupCode}
             onChange={(e) => setGroupCode(e.target.value)}
             required
           />
-        </div>
-        <button type="submit" disabled={isLoading}>
+          <button type="submit" disabled={isLoading} className={common.button}>
           {isLoading ? 'Joining...' : 'Join Group'}
-        </button>
+          </button>
+        </div>
       </form>
     </div>
   );

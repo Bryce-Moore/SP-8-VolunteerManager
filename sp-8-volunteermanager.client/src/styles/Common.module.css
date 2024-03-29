@@ -1,0 +1,109 @@
+.container {
+    background-color: #006400;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.2);
+    color: ghostwhite;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin: 20px;
+}
+
+.inputRow {
+    font-weight: 500;
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.inputName {
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.button, .promoteButton, .removeButton, .whiteButton {
+    padding: 10px 40px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.promoteButton, .removeButton, .whiteButton {
+    margin-bottom: 0;
+    padding: 10px 20px;
+    margin-left: 5px;
+}
+
+.removeButton {
+    background-color: red;
+}
+
+.button:hover, .promoteButton:hover {
+    background-color: #044387;
+}
+
+.removeButton:hover {
+    background-color: darkred;
+}
+
+.whiteButton {
+    color: #0a0a0a;
+    background-color: ghostwhite;
+}
+
+.whiteButton:hover {
+    background-color: #a1a1a1;
+}
+
+.centerForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.centerDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.groupList {
+    padding: 0;
+}
+
+.nameItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 400px;
+    list-style: none;
+    background-color: #5aa358;
+    padding: 0;
+    border-radius: 5px;
+}
+
+
