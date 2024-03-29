@@ -38,8 +38,8 @@ const CreateGroup = () => {
       setGroupName('');
       setGroupDescription('');
       alert('Group created successfully!');
-      navigate('/dashboard'); //Navigate back to the dashboard to refresh the groups
-
+      navigate('/dashboard', { replace: true }); // Use replace to navigate without pushing a new entry onto the history stack
+      window.location.reload(); // This forces the page to reload, which in turn refreshes the groups state
     } catch (error) {
       console.error('Failed to create group', error);
       setError('Failed to create group. Please try again.');

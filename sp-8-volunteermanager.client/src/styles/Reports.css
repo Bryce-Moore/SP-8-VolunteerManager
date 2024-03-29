@@ -1,0 +1,40 @@
+.reports {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.reports > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+    width: 100%; 
+    margin-bottom: 20px; 
+}
+
+.reports label {
+    display: block; 
+    margin-bottom: 15px; 
+}
+
+.reports input[type="date"],
+.reports input[type="text"] {
+    display: block;
+    margin-top: 5px;
+    width: 100%; 
+    margin-bottom: 10px; 
+}
+
+.reports button {
+    width: auto; 
+    margin-top: 20px; 
+    align-self: center; 
+}
+
+.reports a {
+    display: block; 
+    text-align: center; 
+    margin-top: 20px; 
+}

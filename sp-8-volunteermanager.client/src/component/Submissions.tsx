@@ -1,6 +1,7 @@
 // src/components/Submissions.tsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../styles/Submissions.css';
 
 interface Shift {
   id: string;
@@ -86,7 +87,7 @@ const Submissions: React.FC<Props> = ({ currentGroupId }) => {
   };
 
   return (
-    <div>
+    <div className='submissions'>
       <h2>Shift Submissions</h2>
       <div>
         <input

@@ -1,3 +1,4 @@
+// src/component/Login.tsx
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -38,7 +39,8 @@ function Login() {
       
       // Redirect the user to the dashboard
       console.log('Navigating to Dashboard.tsx')
-      navigate('/dashboard');
+      navigate('/dashboard/submit-shifts');
+      window.location.reload();
     } catch (error) {
       if (axios.isAxiosError(error)) {
         // Handle errors returned from the server

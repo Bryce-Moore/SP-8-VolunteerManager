@@ -1,0 +1,34 @@
+.submitShifts {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    width: 100%; 
+}
+
+.submitShifts form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    max-width: 500px; 
+}
+
+.submitShifts form label {
+    margin-bottom: 15px; 
+    display: block; 
+}
+
+.submitShifts form input[type="date"],
+.submitShifts form input[type="time"] {
+    display: block; 
+    margin-top: 5px; 
+    width: 100%; 
+}
+
+.submitShifts button {
+    margin-top: 20px; 
+}
+
+.submitShifts p {
+    margin-top: 20px; 
+    text-align: center; 
+}

@@ -1,6 +1,7 @@
 // src/components/SubmitShifts.tsx
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../styles/SubmitShifts.css';
 
 interface Props {
   currentGroupId: string; 
@@ -44,7 +45,7 @@ const SubmitShifts: React.FC<Props> = ({ currentGroupId }) => {
   };
 
   return (
-    <div>
+    <div className='submitShifts'>
       <h2>Submit Shift</h2>
       <form onSubmit={handleSubmit}>
         <label>
