@@ -113,16 +113,16 @@ const Submissions: React.FC<Props> = ({ currentGroupId }) => {
         />
         <button className={common.whiteButton} onClick={fetchShiftSubmissions}>Filter</button>
       </div>
-      <ul>
+      <ul className={common.groupList}>
         {displayedShifts.map(shift => (
-          <li key={shift.shift_id}>
+          <li className={common.nameItem} key={shift.shift_id}>
             {/* Ideally we switch change account_id to email for this display */}
-            <div>{shift.date} - {shift.start_time} to {shift.end_time} ({shift.total_time}) by {shift.account_id}</div>
-            <div>Status: {shift.status}</div>
+            <div className={common.inputName}>{shift.date} - {shift.start_time} to {shift.end_time} ({shift.total_time}) by {shift.account_id}</div>
+            <div className={common.inputName}>Status: {shift.status}</div>
             {shift.status === 'Pending' && (
               <>
-                <button onClick={() => updateShiftStatus(shift.shift_id, 'Approved')}>Approve</button>
-                <button onClick={() => updateShiftStatus(shift.shift_id, 'Denied')}>Deny</button>
+                <button className={common.promoteButton} onClick={() => updateShiftStatus(shift.shift_id, 'Approved')}>Approve</button>
+                <button className={common.removeButton} onClick={() => updateShiftStatus(shift.shift_id, 'Denied')}>Deny</button>
               </>
             )}
           </li>

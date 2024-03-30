@@ -63,14 +63,14 @@ const ShiftHistory: React.FC<Props> = ({ currentGroupId }) => {
   return (
     <div className={common.container}>
       <h2>Shift History</h2>
-      <ul>
+      <ul className={common.groupList}>
         {shifts.map(shift => (
-          <li key={shift.shift_id}>
-            <div>Date: {shift.date}</div>
-            <div>Start Time: {shift.start_time}</div>
-            <div>End Time: {shift.end_time}</div>
-            <div>Total Time: {shift.total_time}</div>
-            <div>Status: {shift.status}{shift.status === 'Pending' && <button onClick={() => cancelShift(shift.shift_id)}>Cancel Shift</button>}</div>
+          <li className={common.nameItem} key={shift.shift_id}>
+            <div className={common.inputName}>Date: {shift.date}</div>
+            <div className={common.inputName}>Start Time: {shift.start_time}</div>
+            <div className={common.inputName}>End Time: {shift.end_time}</div>
+            <div className={common.inputName}>Total Time: {shift.total_time}</div>
+            <div className={common.inputName}>Status: {shift.status}{shift.status === 'Pending' && <button className={common.removeButton} onClick={() => cancelShift(shift.shift_id)}>Cancel Shift</button>}</div>
           </li>
         ))}
       </ul>

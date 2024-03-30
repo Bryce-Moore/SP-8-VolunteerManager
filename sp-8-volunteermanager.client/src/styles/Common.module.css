@@ -36,6 +36,7 @@
 .inputName {
     font-weight: 500;
     font-size: 20px;
+    margin: 20px;
 }
 
 .button, .promoteButton, .removeButton, .whiteButton {
